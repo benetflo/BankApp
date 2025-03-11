@@ -6,7 +6,7 @@ import sqlite3
 
 
 def connect_db():
-	return sqlite3.connect(bankapp.db) # if not exists create database file
+	return sqlite3.connect("bankapp.db") # if not exists create database file
 
 
 def add_user(name, email, password):
@@ -35,5 +35,7 @@ def get_user_by_email(email):
 	user = cursor.fetchone() # gets first matching user
 	conn.close()
 	return user
+
+
 
 
