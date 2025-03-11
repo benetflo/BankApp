@@ -11,31 +11,47 @@ def connect_db():
 def create_tables_from_schema():
 	conn = connect_db()
 	cursor = conn.cursor()
+	try:
+		with open('db/schema.sql', 'r') as f:
+			sql_script = f.read()
 
-	with open('db/schema.sql', 'r') as f:
-		sql_script = f.read()
+		cursor.executescript(sql_script)
+		conn.commit()
+		return True
 
-	cursor.executescript(sql_script)
-	conn.commit()
-	conn.close()
+	except FileNotFoundError:
+		return False
+	finally:
+		conn.close()
 
 
 def add_user(name, email, password):
 	conn = connect_db()
 	cursor = conn.cursor()
-	cursor.execute('''
-	INSERT INTO users (name, email, password)
-	VALUES (?, ?, ?)
-	''', (name, email, password))
-	conn.commit() # commit to database
-	conn.close() # close connection to database
+	try:
+		cursor.execute('''
+		INSERT INTO users (name, email, password)
+		VALUES (?, ?, ?)
+		''', (name, email, password))
+		conn.commit() # commit to database
+		return True
+	except:
+		return False
+	finally:
+		conn.close() # close connection to database
 
 def delete_user(user_id):
-	conn = connect_db()
-	cursor = conn.cursor()
-	cursor.execute('DELETE FROM users WHERE id = ?', (user_id,))
-	conn.commit()
-	conn.close()
+
+	try:
+		conn = connect_db()
+		cursor = conn.cursor()
+		cursor.execute('DELETE FROM users WHERE id = ?', (user_id,))
+		conn.commit()
+		return True
+	except:
+		return False
+	finally:
+		conn.close()
 
 
 
