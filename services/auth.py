@@ -1,5 +1,5 @@
 # Hantering av registrering och inloggning
-from database import add_user, get_user_by_email, delete_user
+from db.database import add_user, get_user_by_email, delete_user
 
 def register_user(name, email, password):
     if get_user_by_email(email):
