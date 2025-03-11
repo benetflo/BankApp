@@ -8,6 +8,17 @@ import sqlite3
 def connect_db():
 	return sqlite3.connect("bankapp.db") # if not exists create database file
 
+def create_tables_from_schema():
+	conn = connect_db()
+	cursor = conn.cursor()
+
+	with open('db/schema.sql', 'r') as f:
+		sql_script = f.read()
+
+	cursor.executescript(sql_script)
+	conn.commit()
+	conn.close()
+
 
 def add_user(name, email, password):
 	conn = connect_db()
