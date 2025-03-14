@@ -7,6 +7,10 @@ mouse_index = 0 # default value
     
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
+    
+
+def get_mouse_index():
+    return mouse_index
 
 # display menu items and highlight selected item
 def display_menu(items):
@@ -49,16 +53,20 @@ def move_cursor(items):
         return "exit"    
 
 
-def login_screen():
+def login():
     print("Login screen called")
 
 
-def create_account_screen():
+def create_account():
     print("Create account screen called")
+
+
+
 
 
 item = ["test", "boll"]
 
+# function test
 if __name__ == "__main__":
     print("Hello from functions")
     while True:
